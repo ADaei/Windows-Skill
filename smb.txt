@@ -36,5 +36,6 @@ Windows Feature Disable
 
 
 [Windows Registry Editoy]
+
 Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters
     AllowInsecureGuestAuth = 1
