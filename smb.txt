@@ -1,0 +1,40 @@
+[Power Shell Command/Command prompt (In Administrator Mode)]
+
+SMB1 REG Get
+    Get-SmbServerConfiguration | Format-List EnableSMB1Protocol
+    Get-SmbServerConfiguration | Format-List EnableSMB2Protocol
+SMB1 REG Set
+    Set-SmbServerConfiguration -EnableSMB1Protocol 1
+    Set-SmbServerConfiguration -EnableSMB2Protocol 1
+
+
+SMB1 status
+    SC.EXE query mrxsmb10
+    SC.EXE query mrxsmb20
+LAN dependency
+    SC.EXE config lanmanworkstation depend=bowser/mrxsmb10/nsi
+    SC.EXE config lanmanworkstation depend=bowser/mrxsmb20/nsi
+SMB ?? start
+    SC.EXE config mrxsmb10 start=auto
+    SC.EXE config mrxsmb20 start=auto
+SMB ?? disable
+    SC.EXE config mrxsmb10 start=disabled
+    SC.EXE config mrxsmb20 start=disabled
+
+
+Windows Feature Detect
+    Get-WindowsOptionalFeature -Online -FeatureName SMB1Protocol
+    Get-WindowsOptionalFeature -Online -FeatureName SMBDirect
+
+Windows Feature Enable
+    Enable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol
+    Enable-WindowsOptionalFeature -Online -FeatureName SMBDirect
+
+Windows Feature Disable
+    Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol
+    Disable-WindowsOptionalFeature -Online -FeatureName SMBDirect
+
+
+[Windows Registry Editoy]
+Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters
+    AllowInsecureGuestAuth = 1
